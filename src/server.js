@@ -36,7 +36,7 @@ app.use(
       const cleanOrigin = normalize(origin);
 
       const isVercelPreview =
-        /^https:\/\/myseo-[a-z0-9-]+-k1shors-projects\.vercel\.app$/.test(cleanOrigin);
+        /^https:\/\/myseo-[a-z0-9-]+\.vercel\.app$/.test(cleanOrigin);
 
       if (allowedOrigins.includes(cleanOrigin) || isVercelPreview) {
         callback(null, true);
