@@ -21,7 +21,6 @@ import seoRoutes from "./routes/seo.routes.js";
 
 const app = express();
 
-import cors from "cors";
 
 const normalize = (url) => (url || "").replace(/\/$/, "");
 
