@@ -21,10 +21,36 @@ import seoRoutes from "./routes/seo.routes.js";
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
-  credentials: true
-}));
+import cors from "cors";
+
+const normalize = (url) => (url || "").replace(/\/$/, "");
+
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:3000",
+].filter(Boolean).map(normalize);
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      const cleanOrigin = normalize(origin);
+
+      const isVercelPreview =
+        /^https:\/\/myseo-[a-z0-9-]+-k1shors-projects\.vercel\.app$/.test(cleanOrigin);
+
+      if (allowedOrigins.includes(cleanOrigin) || isVercelPreview) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS: " + origin));
+      }
+    },
+    credentials: true,
+  })
+);
+
+
+
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
