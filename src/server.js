@@ -18,6 +18,7 @@ import userRoutes from "./routes/user.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
 import seoRoutes from "./routes/seo.routes.js";
+import reviewRoutes from "./routes/reviewRoutes.js"
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/seo", seoRoutes);
+app.use('/api/reviews', reviewRoutes)
 
 app.use(notFound);
 app.use(errorHandler);
