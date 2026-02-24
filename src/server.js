@@ -18,17 +18,19 @@ import userRoutes from "./routes/user.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
 import seoRoutes from "./routes/seo.routes.js";
-import reviewRoutes from "./routes/reviewRoutes.js"
+import reviewRoutes from "./routes/reviewRoutes.js";
+
+import aboutRoutes from "./routes/aboutRoutes.js";
+import adminAboutRoutes from "./routes/adminAboutRoutes.js";
 
 const app = express();
 
-
 const normalize = (url) => (url || "").replace(/\/$/, "");
 
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  "http://localhost:3000",
-].filter(Boolean).map(normalize);
+// ✅ CORS allowlist (prod + local) + vercel previews
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:3000"]
+  .filter(Boolean)
+  .map(normalize);
 
 app.use(
   cors({
@@ -45,11 +47,9 @@ app.use(
         callback(new Error("Not allowed by CORS: " + origin));
       }
     },
-    credentials: true,
+    credentials: true
   })
 );
-
-
 
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
@@ -61,14 +61,22 @@ configurePassport(app);
 
 app.get("/api/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
 
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/seo", seoRoutes);
-app.use('/api/reviews', reviewRoutes)
+app.use("/api/reviews", reviewRoutes);
 
+// ✅ About (public)
+app.use("/api/about", aboutRoutes);
+
+// ✅ About (admin CMS)
+app.use("/api/admin/about", adminAboutRoutes);
+
+// 404 + error handler
 app.use(notFound);
 app.use(errorHandler);
 
@@ -77,5 +85,7 @@ const PORT = process.env.PORT || 5000;
 (async () => {
   await connectDb();
   await seedAdminIfMissing();
-  app.listen(PORT, () => console.log(`✅ Backend running on http://localhost:${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`✅ Backend running on http://localhost:${PORT}`)
+  );
 })();
