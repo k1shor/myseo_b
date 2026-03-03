@@ -22,6 +22,8 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 
 import aboutRoutes from "./routes/aboutRoutes.js";
 import adminAboutRoutes from "./routes/adminAboutRoutes.js";
+import toolRoutes from "./routes/toolRoutes.js";
+
 
 const app = express();
 
@@ -69,6 +71,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/seo", seoRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/tools", toolRoutes);
 
 // ✅ About (public)
 app.use("/api/about", aboutRoutes);
