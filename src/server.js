@@ -18,6 +18,7 @@ import userRoutes from "./routes/user.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
 import seoRoutes from "./routes/seo.routes.js";
+import caseStudyRoutes from "./routes/casestudyRoute.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 
 import aboutRoutes from "./routes/aboutRoutes.js";
@@ -72,6 +73,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/seo", seoRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/tools", toolRoutes);
+app.use("/api/case-studies", caseStudyRoutes);
 
 // ✅ About (public)
 app.use("/api/about", aboutRoutes);
@@ -83,7 +85,7 @@ app.use("/api/admin/about", adminAboutRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 (async () => {
   await connectDb();
