@@ -20,10 +20,13 @@ import uploadRoutes from "./routes/upload.routes.js";
 import seoRoutes from "./routes/seo.routes.js";
 import caseStudyRoutes from "./routes/casestudyRoute.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import faqRoutes from "./routes/faqRoutes.js";
+
 
 import aboutRoutes from "./routes/aboutRoutes.js";
 import adminAboutRoutes from "./routes/adminAboutRoutes.js";
 import toolRoutes from "./routes/toolRoutes.js";
+
 
 
 const app = express();
@@ -74,6 +77,8 @@ app.use("/api/seo", seoRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/tools", toolRoutes);
 app.use("/api/case-studies", caseStudyRoutes);
+app.use("/api/faqs", faqRoutes);
+
 
 // ✅ About (public)
 app.use("/api/about", aboutRoutes);
